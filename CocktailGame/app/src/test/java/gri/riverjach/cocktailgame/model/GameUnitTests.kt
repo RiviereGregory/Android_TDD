@@ -100,5 +100,16 @@ class GameUnitTests {
         Assert.assertEquals(1, game.currentScore)
     }
 
+    @Test
+    fun whenAnsweringIncorrectly_shouldNotIncrementCurrentScore() {
+        val question = mock<Question>()
+        whenever(question.answer(anyString())).thenReturn(false)
+        val game = Game(questions = listOf(question))
+
+        game.answer(question, "OPTION")
+
+        Assert.assertEquals(0, game.currentScore)
+    }
+
 
 }
