@@ -29,15 +29,21 @@
   -->
 
 <resources>
-    <string name="app_name">Cocktails</string>
-    <string name="main_title">Cocktails</string>
-    <string name="game_next">Next</string>
-    <string name="error_default_text">Error</string>
-    <string name="error_retry_default_text">Retry</string>
-    <string name="loading_default_text">Loading</string>
-    <string name="no_results_default_text">No results</string>
-    <string name="game_no_questions_left">No questions left</string>
-    <string name="game_score">Score: %1$d</string>
-    <string name="game_highscore">Highscore: %1$d</string>
-    <string name="game_question_title">What is the name of this cocktail?</string>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

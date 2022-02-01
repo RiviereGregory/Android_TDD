@@ -2,17 +2,16 @@ package gri.riverjach.cocktailgame.model
 
 import org.junit.Assert
 import org.junit.Test
-import org.mockito.Mockito.*
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.whenever
+import org.mockito.ArgumentMatchers.anyString
+import org.mockito.kotlin.*
 
 class GameUnitTests {
     @Test
     fun whenNextQuestion_readNextQuestion() {
         val questions = listOf(
-            Question("CORRECT", "INCORRECT"),
-            Question("CORRECT", "INCORRECT"),
-            Question("CORRECT", "INCORRECT")
+            Question("CORRECT", "INCORRECT", "rien"),
+            Question("CORRECT", "INCORRECT", "rien"),
+            Question("CORRECT", "INCORRECT", "rien")
         )
         val game = Game(questions)
 
@@ -24,7 +23,7 @@ class GameUnitTests {
     @Test
     fun whenNextQuestion_EndList_returnNull() {
         val questions = listOf(
-            Question("CORRECT", "INCORRECT")
+            Question("CORRECT", "INCORRECT", "rien")
         )
         val game = Game(questions)
 
@@ -44,7 +43,7 @@ class GameUnitTests {
         game.answer(question, "OPTION")
 
         // 3
-        verify(question).answer(option = "OPTION")
+        verify(question).answer(eq("OPTION"))
 
     }
 

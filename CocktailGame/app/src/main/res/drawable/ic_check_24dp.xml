@@ -28,16 +28,12 @@
   ~ THE SOFTWARE.
   -->
 
-<resources>
-    <string name="app_name">Cocktails</string>
-    <string name="main_title">Cocktails</string>
-    <string name="game_next">Next</string>
-    <string name="error_default_text">Error</string>
-    <string name="error_retry_default_text">Retry</string>
-    <string name="loading_default_text">Loading</string>
-    <string name="no_results_default_text">No results</string>
-    <string name="game_no_questions_left">No questions left</string>
-    <string name="game_score">Score: %1$d</string>
-    <string name="game_highscore">Highscore: %1$d</string>
-    <string name="game_question_title">What is the name of this cocktail?</string>
-</resources>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24.0"
+    android:viewportHeight="24.0">
+    <path
+        android:fillColor="#4CAF50"
+        android:pathData="M9,16.17L4.83,12l-1.42,1.41L9,19 21,7l-1.41,-1.41z" />
+</vector>

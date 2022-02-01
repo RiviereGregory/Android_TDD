@@ -2,7 +2,8 @@ package gri.riverjach.cocktailgame.model
 
 class Question(
     val correctOption: String,
-    val incorrectOption: String
+    val incorrectOption: String,
+    val strDrinkThumb: String
 ) {
     var answeredOption: String? = null
         private set
