@@ -6,4 +6,9 @@ class Question(
 ) {
     var answeredOption: String? = null
         private set
+
+    fun answer(option: String) {
+        // No implementation yet
+    }
+
 }
