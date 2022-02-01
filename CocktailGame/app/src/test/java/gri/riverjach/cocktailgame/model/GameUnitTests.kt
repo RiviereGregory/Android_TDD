@@ -40,4 +40,30 @@ class GameUnitTests {
     }
 
 
+    @Test
+    fun whenNextQuestion_readNextQuestion() {
+        val questions = listOf(
+            Question("CORRECT", "INCORRECT"),
+            Question("CORRECT", "INCORRECT"),
+            Question("CORRECT", "INCORRECT")
+        )
+        val game = Game(questions = questions)
+
+        val question = game.nextQuestion()
+
+        Assert.assertNotNull(question)
+    }
+
+    @Test
+    fun whenNextQuestion_EndList_returnNull() {
+        val questions = listOf(
+            Question("CORRECT", "INCORRECT")
+        )
+        val game = Game(questions = questions)
+
+        game.nextQuestion()
+        val question = game.nextQuestion()
+
+        Assert.assertNull(question)
+    }
 }
