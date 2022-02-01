@@ -19,4 +19,9 @@ class Game(highest: Int = 0, questions: List<Question> = emptyList()) {
     fun nextQuestion(): Question? =
         if (questionsIterator.hasNext()) questionsIterator.next() else null
 
+    fun answer(question: Question, option: String) {
+        question.answer(option)
+        incrementScore()
+    }
+
 }

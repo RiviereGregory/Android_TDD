@@ -2,6 +2,10 @@ package gri.riverjach.cocktailgame.model
 
 import org.junit.Assert
 import org.junit.Test
+import org.mockito.Mockito.anyString
+import org.mockito.Mockito.verify
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.whenever
 
 class GameUnitTests {
     // 1
@@ -66,4 +70,35 @@ class GameUnitTests {
 
         Assert.assertNull(question)
     }
+
+    @Test
+    fun whenAnswering_shouldDelegateToQuestion() {
+        // 1
+        val question: Question = mock()
+        val game = Game(questions = listOf(question))
+
+        // 2
+        game.answer(question, "OPTION")
+
+        // 3
+        verify(question).answer(option = "OPTION")
+
+    }
+
+    @Test
+    fun whenAnsweringCorrectly_shouldIncrementCurrentScore() {
+        // 1
+        val question = mock<Question>()
+        whenever(question.answer(anyString())).thenReturn(true)
+
+        val game = Game(questions = listOf(question))
+
+        // 2
+        game.answer(question, "OPTION")
+
+        // 3
+        Assert.assertEquals(1, game.currentScore)
+    }
+
+
 }
