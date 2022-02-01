@@ -5,6 +5,6 @@ class Game {
         private set
 
     fun incrementScore() {
-        // No implementation yet
+        currentScore++
     }
 }
