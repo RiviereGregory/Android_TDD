@@ -2,8 +2,7 @@ package gri.riverjach.cocktailgame.model
 
 import org.junit.Assert
 import org.junit.Test
-import org.mockito.Mockito.anyString
-import org.mockito.Mockito.verify
+import org.mockito.Mockito.*
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
@@ -15,7 +14,7 @@ class GameUnitTests {
             Question("CORRECT", "INCORRECT"),
             Question("CORRECT", "INCORRECT")
         )
-        val game = Game(questions, 0)
+        val game = Game(questions)
 
         val question = game.nextQuestion()
 
@@ -27,7 +26,7 @@ class GameUnitTests {
         val questions = listOf(
             Question("CORRECT", "INCORRECT")
         )
-        val game = Game(questions, 0)
+        val game = Game(questions)
 
         game.nextQuestion()
         val question = game.nextQuestion()
@@ -39,7 +38,7 @@ class GameUnitTests {
     fun whenAnswering_shouldDelegateToQuestion() {
         // 1
         val question: Question = mock()
-        val game = Game(listOf(question), 0)
+        val game = Game(listOf(question))
 
         // 2
         game.answer(question, "OPTION")
@@ -51,29 +50,26 @@ class GameUnitTests {
 
     @Test
     fun whenAnsweringCorrectly_shouldIncrementCurrentScore() {
-        // 1
         val question = mock<Question>()
         whenever(question.answer(anyString())).thenReturn(true)
+        val score = mock<Score>()
+        val game = Game(listOf(question), score)
 
-        val game = Game(listOf(question), 0)
-
-        // 2
         game.answer(question, "OPTION")
 
-        // 3
-        Assert.assertEquals(1, game.currentScore)
+        verify(score).increment()
     }
 
     @Test
     fun whenAnsweringIncorrectly_shouldNotIncrementCurrentScore() {
         val question = mock<Question>()
         whenever(question.answer(anyString())).thenReturn(false)
-        val game = Game(listOf(question), 0)
+        val score = mock<Score>()
+        val game = Game(listOf(question), score)
 
         game.answer(question, "OPTION")
 
-        Assert.assertEquals(0, game.currentScore)
+        verify(score, never()).increment()
     }
-
 
 }
