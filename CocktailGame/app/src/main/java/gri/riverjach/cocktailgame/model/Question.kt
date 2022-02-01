@@ -4,6 +4,6 @@ class Question(
     val correctOption: String,
     val incorrectOption: String
 ) {
-    var answeredOption: String? = "MY ANSWER"
+    var answeredOption: String? = null
         private set
 }
