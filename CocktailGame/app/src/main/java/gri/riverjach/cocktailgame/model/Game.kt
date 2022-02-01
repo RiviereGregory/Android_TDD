@@ -23,7 +23,7 @@ class Game(questions: List<Question> = emptyList(), highest: Int = 0) {
     fun answer(question: Question, option: String) {
         val result = question.answer(option)
         if (result) {
-            incrementScore()
+            score.increment()
         }
     }
 
