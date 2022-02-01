@@ -8,7 +8,7 @@ class Question(
         private set
 
     fun answer(option: String) {
-        // No implementation yet
+        answeredOption = option
     }
 
 }
