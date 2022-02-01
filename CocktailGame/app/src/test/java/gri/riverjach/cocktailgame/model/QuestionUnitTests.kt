@@ -39,4 +39,11 @@ class QuestionUnitTests {
         Assert.assertFalse(result)
     }
 
+    @Test(expected = IllegalArgumentException::class)
+    fun whenAnswering_withInvalidOption_shouldThrowException() {
+        val question = Question("CORRECT", "INCORRECT")
+
+        question.answer("INVALID")
+    }
+
 }
