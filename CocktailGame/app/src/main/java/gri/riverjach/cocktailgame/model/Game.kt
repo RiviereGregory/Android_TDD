@@ -1,20 +1,21 @@
 package gri.riverjach.cocktailgame.model
 
-class Game(highest: Int = 0, questions: List<Question> = emptyList()) {
-    var currentScore = 0
-        private set
+class Game(questions: List<Question> = emptyList(), highest: Int = 0) {
+    private val score = Score(highest)
 
-    var highestScore = highest
-        private set
+    val currentScore: Int
+        get() = score.current
 
-    val questionsIterator = questions.iterator()
+    val highestScore: Int
+        get() = score.highest
+
+    private var questionIndex = -1
 
     fun incrementScore() {
-        currentScore++
-        if (currentScore > highestScore) {
-            highestScore = currentScore
-        }
+        score.increment()
     }
+
+    val questionsIterator = questions.iterator()
 
     fun nextQuestion(): Question? =
         if (questionsIterator.hasNext()) questionsIterator.next() else null

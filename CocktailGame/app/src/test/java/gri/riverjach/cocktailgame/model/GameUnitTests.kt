@@ -36,7 +36,7 @@ class GameUnitTests {
 
     @Test
     fun whenIncrementingScore_belowHighScore_shouldNotIncrementHighScore() {
-        val game = Game(10)
+        val game = Game(highest = 10)
 
         game.incrementScore()
 
