@@ -30,4 +30,14 @@ class GameUnitTests {
         Assert.assertEquals(1, game.highestScore)
     }
 
+    @Test
+    fun whenIncrementingScore_belowHighScore_shouldNotIncrementHighScore() {
+        val game = Game(10)
+
+        game.incrementScore()
+
+        Assert.assertEquals(10, game.highestScore)
+    }
+
+
 }

@@ -1,10 +1,10 @@
 package gri.riverjach.cocktailgame.model
 
-class Game {
+class Game(highest: Int = 0) {
     var currentScore = 0
         private set
 
-    var highestScore = 0
+    var highestScore = highest
         private set
 
     fun incrementScore() {
