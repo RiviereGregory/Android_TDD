@@ -9,9 +9,9 @@ class GameUnitTests {
     @Test
     fun whenNextQuestion_readNextQuestion() {
         val questions = listOf(
-            Question("CORRECT", "INCORRECT", "rien"),
-            Question("CORRECT", "INCORRECT", "rien"),
-            Question("CORRECT", "INCORRECT", "rien")
+            Question("CORRECT", "INCORRECT"),
+            Question("CORRECT", "INCORRECT"),
+            Question("CORRECT", "INCORRECT")
         )
         val game = Game(questions)
 
@@ -23,7 +23,7 @@ class GameUnitTests {
     @Test
     fun whenNextQuestion_EndList_returnNull() {
         val questions = listOf(
-            Question("CORRECT", "INCORRECT", "rien")
+            Question("CORRECT", "INCORRECT")
         )
         val game = Game(questions)
 

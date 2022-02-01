@@ -10,7 +10,7 @@ class QuestionUnitTests {
 
     @Before
     fun setup() {
-        question = Question("CORRECT", "INCORRECT", "rien")
+        question = Question("CORRECT", "INCORRECT")
     }
 
 
