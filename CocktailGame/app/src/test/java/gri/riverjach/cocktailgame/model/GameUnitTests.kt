@@ -12,7 +12,7 @@ class GameUnitTests {
     @Test
     fun whenIncrementingScore_shouldIncrementCurrentScore() {
         // 2
-        val game = Game()
+        val game = Game(emptyList(), 0)
 
         // 3
         game.incrementScore()
@@ -27,7 +27,7 @@ class GameUnitTests {
 
     @Test
     fun whenIncrementingScore_aboveHighScore_shouldAlsoIncrementHighScore() {
-        val game = Game()
+        val game = Game(emptyList(), 0)
 
         game.incrementScore()
 
@@ -36,7 +36,7 @@ class GameUnitTests {
 
     @Test
     fun whenIncrementingScore_belowHighScore_shouldNotIncrementHighScore() {
-        val game = Game(highest = 10)
+        val game = Game(emptyList(), 10)
 
         game.incrementScore()
 
@@ -51,7 +51,7 @@ class GameUnitTests {
             Question("CORRECT", "INCORRECT"),
             Question("CORRECT", "INCORRECT")
         )
-        val game = Game(questions = questions)
+        val game = Game(questions, 0)
 
         val question = game.nextQuestion()
 
@@ -63,7 +63,7 @@ class GameUnitTests {
         val questions = listOf(
             Question("CORRECT", "INCORRECT")
         )
-        val game = Game(questions = questions)
+        val game = Game(questions, 0)
 
         game.nextQuestion()
         val question = game.nextQuestion()
@@ -75,7 +75,7 @@ class GameUnitTests {
     fun whenAnswering_shouldDelegateToQuestion() {
         // 1
         val question: Question = mock()
-        val game = Game(questions = listOf(question))
+        val game = Game(listOf(question), 0)
 
         // 2
         game.answer(question, "OPTION")
@@ -91,7 +91,7 @@ class GameUnitTests {
         val question = mock<Question>()
         whenever(question.answer(anyString())).thenReturn(true)
 
-        val game = Game(questions = listOf(question))
+        val game = Game(listOf(question), 0)
 
         // 2
         game.answer(question, "OPTION")
@@ -104,7 +104,7 @@ class GameUnitTests {
     fun whenAnsweringIncorrectly_shouldNotIncrementCurrentScore() {
         val question = mock<Question>()
         whenever(question.answer(anyString())).thenReturn(false)
-        val game = Game(questions = listOf(question))
+        val game = Game(listOf(question), 0)
 
         game.answer(question, "OPTION")
 
