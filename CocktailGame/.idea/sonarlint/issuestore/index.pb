@@ -54,8 +54,6 @@ Papp/src/main/java/gri/riverjach/cocktailgame/viewmodel/CocktailsGameViewModel.k
 Wapp/src/main/java/gri/riverjach/cocktailgame/viewmodel/CocktailsGameViewModelFactory.kt,0\a\0a336166b2c7fa806d71a169a2de1a73cfbbd644
 t
 Dapp/src/main/java/gri/riverjach/cocktailgame/CocktailsApplication.kt,5\1\51616389130a366eb3d94dbb17cbfad0d8312c31
-l
-<app/src/main/java/gri/riverjach/cocktailgame/MainActivity.kt,1\a\1a12712a3719213edeb104c368898b2e2004cd74
 [
 +app/src/main/res/drawable/ic_check_24dp.xml,6\5\657fe570390f87bafc4162e4c6a69041b55fdd15
 [
@@ -92,3 +90,7 @@ w
 Gapp/src/test/java/gri/riverjach/cocktailgame/model/QuestionUnitTests.kt,1\8\18663186de6452be4d2a00d5be24a670b3783376
 s
 Capp/src/test/java/gri/riverjach/cocktailgame/RepositoryUnitTests.kt,9\a\9ad23b04f3a9efa14156995ebd0fb33b95601cb9
+…
+Uapp/src/test/java/gri/riverjach/cocktailgame/factory/CocktailsGameFactoryUnitTests.kt,7\9\79ccf4b0d552a026d1b4921a53700b783ef0eee9
+
+Oapp/src/test/java/gri/riverjach/cocktailgame/CocktailsGameViewModelUnitTests.kt,b\3\b3f5bd450f864ffebfccdd79d9d615873df7739d
