@@ -1,6 +1,7 @@
 package gri.riverjach.wishlist
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.Observer
 import gri.riverjach.wishlist.persistance.RepositoryImpl
 import gri.riverjach.wishlist.persistance.WishlistDao
 import gri.riverjach.wishlist.persistance.WishlistDaoImpl
@@ -8,6 +9,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito
 import org.mockito.kotlin.any
+import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 
 class DetailViewModelTest {
@@ -33,5 +35,27 @@ class DetailViewModelTest {
         // 2
         verify(wishlistDao).save(any())
     }
+
+    @Test
+    fun saveNewItemSavesData() {
+        // 1
+        val wishlist = Wishlist(
+            "Victoria",
+            listOf("RW Android Apprentice Book", "Android phone"), 1
+        )
+        // 2
+        val name = "Smart watch"
+        viewModel.saveNewItem(wishlist, name)
+
+        // 3
+        val mockObserver = mock<Observer<Wishlist>>()
+        // 4
+        wishlistDao.findById(wishlist.id)
+            .observeForever(mockObserver)
+        verify(mockObserver).onChanged(
+            wishlist.copy(wishes = wishlist.wishes + name)
+        )
+    }
+
 
 }
