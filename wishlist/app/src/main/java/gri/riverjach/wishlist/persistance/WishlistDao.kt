@@ -4,7 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.room.Dao
-import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import gri.riverjach.wishlist.Wishlist
 
@@ -17,7 +18,7 @@ interface WishlistDao {
     @Query("SELECT * FROM wishlist WHERE id = :id")
     fun findById(id: Int): LiveData<Wishlist>
 
-    @Delete
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(vararg wishlist: Wishlist)
 }
 
