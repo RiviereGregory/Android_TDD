@@ -57,5 +57,11 @@ class DetailViewModelTest {
         )
     }
 
+    @Test
+    fun getWishListCallsDatabase() {
+        viewModel.getWishlist(1)
+
+        verify(wishlistDao).findById(any())
+    }
 
 }
