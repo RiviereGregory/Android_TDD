@@ -8,4 +8,5 @@ import gri.riverjach.wishlist.Wishlist
 @Database(entities = [Wishlist::class], version = 1)
 @TypeConverters(StringListConverter::class)
 abstract class WishlistDatabase : RoomDatabase() {
+    abstract fun wishlistDao(): WishlistDao
 }
