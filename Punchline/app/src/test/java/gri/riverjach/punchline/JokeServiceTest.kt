@@ -1,11 +1,14 @@
 package gri.riverjach.punchline
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import io.reactivex.Single
+import junit.framework.Assert.assertEquals
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
-import junit.framework.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.whenever
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -60,14 +63,37 @@ class JokeServiceTestUsingMockWebServer {
         mockWebServer.enqueue(
             MockResponse()
                 .setBody(testJson)
-                .setResponseCode(200))
+                .setResponseCode(200)
+        )
         // 2
         val testObserver = jokeService.getRandomJoke().test()
         // 3
         testObserver.assertNoErrors()
         // 4
-        assertEquals("/random_joke.json",
-            mockWebServer.takeRequest().path)
+        assertEquals(
+            "/random_joke.json",
+            mockWebServer.takeRequest().path
+        )
+    }
+
+
+}
+
+class JokeServiceTestMockingService {
+    private val jokeService: JokeService = mock()
+    private val repository = RepositoryImpl(jokeService)
+
+    @Test
+    fun getRandomJokeEmitsJoke() {
+        // 1
+        val joke = Joke(id, joke)
+        // 2
+        whenever(jokeService.getRandomJoke())
+            .thenReturn(Single.just(joke))
+        // 3
+        val testObserver = repository.getJoke().test()
+        // 4
+        testObserver.assertValue(joke)
     }
 
 
