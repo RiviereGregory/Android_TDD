@@ -3,6 +3,7 @@ package gri.riverjach.punchline
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
+import junit.framework.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import retrofit2.Retrofit
@@ -51,6 +52,22 @@ class JokeServiceTestUsingMockWebServer {
         val testObserver = jokeService.getRandomJoke().test()
         // 2
         testObserver.assertValue(Joke(id, joke))
+    }
+
+    @Test
+    fun getRandomJokeGetsRandomJokeJson() {
+        // 1
+        mockWebServer.enqueue(
+            MockResponse()
+                .setBody(testJson)
+                .setResponseCode(200))
+        // 2
+        val testObserver = jokeService.getRandomJoke().test()
+        // 3
+        testObserver.assertNoErrors()
+        // 4
+        assertEquals("/random_joke.json",
+            mockWebServer.takeRequest().path)
     }
 
 
