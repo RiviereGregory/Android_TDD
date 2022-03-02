@@ -46,12 +46,6 @@ k
 ;app/src/main/java/gri/riverjach/wishlist/WishlistAdapter.kt,1\1\11d454738f5e7c0cabb0396eb1fc201c5b0ac3d7
 r
 Bapp/src/main/java/gri/riverjach/wishlist/WishlistDetailActivity.kt,4\1\41b498f658072708bec6e02ed09409581df414c4
-d
-4app/src/main/res/drawable/ic_launcher_background.xml,4\9\49845c622cb06d895975c7b1e3f943e320bce688
-h
-8app/src/main/res/drawable-v24/ic_launcher_foreground.xml,0\7\078508c831007ccb3938b355f0d30a8368f99a8d
-Y
-)app/src/main/res/layout/activity_main.xml,7\6\76b07e40f24cce093536731477540f12e7da3cb6
 [
 +app/src/main/res/layout/activity_splash.xml,1\3\13b26b9b6631cddf289c5ab7c4e546a180da97d8
 d
@@ -60,10 +54,6 @@ Y
 )app/src/main/res/layout/item_wishlist.xml,7\b\7bc9fd3f2e6c619bf9405c3c18d23102edc1d13d
 c
 3app/src/main/res/layout/view_input_bottom_sheet.xml,2\e\2ec3df8c97c8a3b4af39e7170fc26db5c261699f
-b
-2app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml,8\e\8e27ba16c655f421171956147d0fde89b7d25d17
-h
-8app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml,6\e\6ec7d34b130497a10dc92abcde9b313d370a89df
 R
 "app/src/main/res/values/colors.xml,9\6\969faa2a5d9f5e8390e958d2c07f2cfd54676e6b
 R
@@ -96,3 +86,7 @@ k
 ;app/src/main/java/gri/riverjach/wishlist/DetailViewModel.kt,9\5\951532c646b0747a3ee26885c6c5eb5bb720fd61
 v
 Fapp/src/androidTest/java/gri/riverjach/wishlist/DetailViewModelTest.kt,1\c\1c6984dfd4c9ed3131f749ad6573ab9e876963e7
+~
+Napp/src/androidTest/java/gri/riverjach/wishlist/persistance/WishlistFactory.kt,3\d\3ddad6eb682ed59ccf0f0304b0b2eb3612c64e02
+~
+Napp/src/androidTest/java/gri/riverjach/wishlist/persistance/WishlistDaoTest.kt,8\3\837d198131662035aaa2c35849c615d25f983872
