@@ -5,7 +5,7 @@ import retrofit2.http.GET
 
 interface JokeService {
 
-    @GET("https://raywenderlich.com")
+    @GET("joke.json")
     fun getRandomJoke(): Single<Joke>
 
 }
