@@ -32,8 +32,6 @@ d
 4app/src/main/res/drawable/ic_launcher_background.xml,4\9\49845c622cb06d895975c7b1e3f943e320bce688
 h
 8app/src/main/res/drawable-v24/ic_launcher_foreground.xml,0\7\078508c831007ccb3938b355f0d30a8368f99a8d
-Y
-)app/src/main/res/layout/activity_main.xml,7\6\76b07e40f24cce093536731477540f12e7da3cb6
 [
 +app/src/main/res/layout/activity_splash.xml,1\3\13b26b9b6631cddf289c5ab7c4e546a180da97d8
 b
