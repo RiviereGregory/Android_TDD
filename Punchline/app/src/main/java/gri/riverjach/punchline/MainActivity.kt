@@ -8,32 +8,33 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
-  private val viewModel: MainViewModel by viewModel()
-  private lateinit var binding: ActivityMainBinding
+    private val viewModel: MainViewModel by viewModel()
+    private lateinit var binding: ActivityMainBinding
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    binding = ActivityMainBinding.inflate(layoutInflater)
-    setContentView(binding.root)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-    viewModel.state.observe(this, { uiModel ->
-      render(uiModel)
-    })
-    viewModel.getJoke()
-  }
-
-  private fun render(uiModel: UiModel) {
-    when (uiModel) {
-      is UiModel.Success -> showJoke(uiModel.joke)
-      is UiModel.Error -> showError(uiModel.error)
+        viewModel.state.observe(this, { uiModel ->
+            render(uiModel)
+        })
+        viewModel.getJoke()
     }
-  }
 
-  private fun showJoke(joke: Joke) {
-  }
+    private fun render(uiModel: UiModel) {
+        when (uiModel) {
+            is UiModel.Success -> showJoke(uiModel.joke)
+            is UiModel.Error -> showError(uiModel.error)
+        }
+    }
 
-  private fun showError(error: String) {
-    Toast.makeText(this, error, Toast.LENGTH_LONG).show()
-  }
+    private fun showJoke(joke: Joke) {
+        binding.textJoke.text = joke.joke
+    }
+
+    private fun showError(error: String) {
+        Toast.makeText(this, error, Toast.LENGTH_LONG).show()
+    }
 }
 
