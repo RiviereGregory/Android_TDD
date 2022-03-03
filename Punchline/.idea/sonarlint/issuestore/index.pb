@@ -38,8 +38,6 @@ b
 2app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml,8\e\8e27ba16c655f421171956147d0fde89b7d25d17
 h
 8app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml,6\e\6ec7d34b130497a10dc92abcde9b313d370a89df
-R
-"app/src/main/res/values/colors.xml,9\6\969faa2a5d9f5e8390e958d2c07f2cfd54676e6b
 b
 2app/src/main/res/values/ic_launcher_background.xml,1\8\18ccc38e5dffe10da3d8b454d3093a0a4ba78749
 S
@@ -72,3 +70,7 @@ P
  app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
 l
 <app/src/test/java/gri/riverjach/punchline/JokeServiceTest.kt,5\1\51bc2fab61a47874cac8e5f51923efb212321503
+k
+;app/src/sharedTest/java/gri/riverjach/punchline/JokeTest.kt,5\c\5c629230923b7f15b95389c92f991df9d0fd8a90
+t
+Dapp/src/androidTest/java/gri/riverjach/punchline/MainActivityTest.kt,f\e\fea858c2138657c4c19a61e209553f3f3ae65220
