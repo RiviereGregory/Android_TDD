@@ -20,6 +20,9 @@ class MainActivity : AppCompatActivity() {
             render(uiModel)
         })
         viewModel.getJoke()
+        binding.buttonNewJoke.setOnClickListener {
+            viewModel.getJoke()
+        }
     }
 
     private fun render(uiModel: UiModel) {
