@@ -46,9 +46,11 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import gri.riverjach.codingcompanionfinder.MainActivity
 import gri.riverjach.codingcompanionfinder.R
+import gri.riverjach.codingcompanionfinder.testhooks.IdlingEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.greenrobot.eventbus.EventBus
 
 class SearchForCompanionFragment : Fragment() {
 
@@ -93,6 +95,8 @@ class SearchForCompanionFragment : Fragment() {
     GlobalScope.launch {
       accessToken = (activity as MainActivity).accessToken
       (activity as MainActivity).petFinderService?.let { petFinderService ->
+        // Decrement the idling resources.
+        EventBus.getDefault().post(IdlingEntity(-1))
         val searchForPetResponse =
           petFinderService.getAnimals(accessToken, location = companionLocation)
 
@@ -117,6 +121,8 @@ class SearchForCompanionFragment : Fragment() {
         } else {
           noResultsTextView?.visibility = VISIBLE
         }
+        // Decrement the idling resources.
+        EventBus.getDefault().post(IdlingEntity(-1))
       }
     }
   }

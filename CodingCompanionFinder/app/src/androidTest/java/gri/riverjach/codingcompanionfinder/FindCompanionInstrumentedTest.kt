@@ -4,15 +4,19 @@ import android.content.Intent
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import gri.riverjach.codingcompanionfinder.testhooks.IdlingEntity
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okhttp3.mockwebserver.RecordedRequest
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import org.junit.BeforeClass
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,6 +29,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class FindCompanionInstrumentedTest {
     lateinit var testScenario: ActivityScenario<MainActivity>
+    private val idlingResource = SimpleIdlingResource()
 
     companion object {
 
@@ -64,6 +69,11 @@ class FindCompanionInstrumentedTest {
         }
     }
 
+    @Subscribe
+    fun onEvent(idlingEntity: IdlingEntity) {
+        idlingResource.incrementBy(idlingEntity.incrementValue)
+    }
+
     @Test
     fun pressing_the_find_bottom_menu_item_takes_the_user_to_the_find_page() {
         testScenario = ActivityScenario.launch(startIntent)
@@ -75,5 +85,38 @@ class FindCompanionInstrumentedTest {
             .check(matches(isDisplayed()))
         testScenario.close()
     }
+
+    @Test
+    fun searching_for_a_companion_and_tapping_on_it_takes_the_user_to_the_companion_details() {
+        testScenario = ActivityScenario.launch(startIntent)
+        EventBus.getDefault().register(this)
+        IdlingRegistry.getInstance().register(idlingResource)
+
+        // 1
+        onView(withId(R.id.searchForCompanionFragment))
+            .perform(click())
+
+        // 2
+        onView(withId(R.id.searchFieldText))
+            .perform(typeText("30318"))
+        onView(withId(R.id.searchButton))
+            .perform(click())
+
+        // 3
+        onView(withId(R.id.searchButton))
+            .check(matches(isDisplayed()))
+
+        // 4
+        onView(withText("KEVIN")).perform(click())
+
+        // 5
+        onView(withText("Rome, GA")).check(matches(isDisplayed()))
+
+        IdlingRegistry.getInstance().unregister(idlingResource)
+        EventBus.getDefault().unregister(this)
+
+        testScenario.close()
+    }
+
 
 }

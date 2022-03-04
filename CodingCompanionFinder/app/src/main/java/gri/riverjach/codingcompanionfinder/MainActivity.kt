@@ -8,8 +8,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import gri.riverjach.codingcompanionfinder.models.Token
 import gri.riverjach.codingcompanionfinder.retrofit.AuthorizationInterceptor
 import gri.riverjach.codingcompanionfinder.retrofit.PetFinderService
+import gri.riverjach.codingcompanionfinder.testhooks.IdlingEntity
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -60,6 +63,24 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    // 1
+    @Subscribe
+    fun onEvent(idlingEntity: IdlingEntity) {
+        // noop
+    }
+
+    // 2
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    // 3
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
     }
 
     override fun onResume() {
