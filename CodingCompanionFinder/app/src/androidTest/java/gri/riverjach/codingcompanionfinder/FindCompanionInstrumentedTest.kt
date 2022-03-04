@@ -17,6 +17,8 @@ import okhttp3.mockwebserver.MockWebServer
 import okhttp3.mockwebserver.RecordedRequest
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
+import org.junit.After
+import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -74,48 +76,49 @@ class FindCompanionInstrumentedTest {
         idlingResource.incrementBy(idlingEntity.incrementValue)
     }
 
-    @Test
-    fun pressing_the_find_bottom_menu_item_takes_the_user_to_the_find_page() {
-        testScenario = ActivityScenario.launch(startIntent)
-        onView(withId(R.id.searchForCompanionFragment))
-            .perform(click())
-        onView(withId(R.id.searchButton))
-            .check(matches(isDisplayed()))
-        onView(withId(R.id.searchFieldText))
-            .check(matches(isDisplayed()))
-        testScenario.close()
-    }
-
-    @Test
-    fun searching_for_a_companion_and_tapping_on_it_takes_the_user_to_the_companion_details() {
+    @Before
+    fun beforeTestsRun() {
         testScenario = ActivityScenario.launch(startIntent)
         EventBus.getDefault().register(this)
         IdlingRegistry.getInstance().register(idlingResource)
 
-        // 1
+    }
+
+    @After
+    fun afterTestsRun() {
+        testScenario.close()
+        IdlingRegistry.getInstance().unregister(idlingResource)
+        EventBus.getDefault().unregister(this)
+
+    }
+
+    @Test
+    fun pressing_the_find_bottom_menu_item_takes_the_user_to_the_find_page() {
         onView(withId(R.id.searchForCompanionFragment))
             .perform(click())
+        onView(withId(R.id.searchButton))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.searchFieldText))
+            .check(matches(isDisplayed()))
+    }
 
-        // 2
+    @Test
+    fun searching_for_a_companion_and_tapping_on_it_takes_the_user_to_the_companion_details() {
+        find_and_select_kevin_in_30318()
+        onView(withText("Rome, GA")).check(matches(isDisplayed()))
+
+    }
+
+    private fun find_and_select_kevin_in_30318() {
+        onView(withId(R.id.searchForCompanionFragment))
+            .perform(click())
         onView(withId(R.id.searchFieldText))
             .perform(typeText("30318"))
         onView(withId(R.id.searchButton))
             .perform(click())
-
-        // 3
         onView(withId(R.id.searchButton))
             .check(matches(isDisplayed()))
-
-        // 4
         onView(withText("KEVIN")).perform(click())
-
-        // 5
-        onView(withText("Rome, GA")).check(matches(isDisplayed()))
-
-        IdlingRegistry.getInstance().unregister(idlingResource)
-        EventBus.getDefault().unregister(this)
-
-        testScenario.close()
     }
 
 
