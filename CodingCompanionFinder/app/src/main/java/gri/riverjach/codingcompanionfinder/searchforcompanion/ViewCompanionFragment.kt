@@ -76,6 +76,8 @@ class ViewCompanionFragment : Fragment() {
       animal.contact.address.city + ", " + animal.contact.address.state
     )
     populateTextField(R.id.age, animal.age)
+    populateTextField(R.id.email, animal.contact.email)
+    populateTextField(R.id.telephone, animal.contact.phone)
     populateTextField(R.id.sex, animal.gender)
     populateTextField(R.id.size, animal.size)
     populateTextField(R.id.meetTitlePlaceholder, "Meet " + animal.name)

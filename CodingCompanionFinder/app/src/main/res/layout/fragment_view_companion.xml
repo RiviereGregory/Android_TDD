@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/breed_placeholder"
-        app:layout_constraintBottom_toTopOf="@+id/age"
+        app:layout_constraintBottom_toTopOf="@+id/email"
         app:layout_constraintEnd_toStartOf="@id/city"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/petCarouselView" />
@@ -61,6 +61,28 @@
         app:layout_constraintTop_toTopOf="@+id/breed" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="email placeholder"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/age"
+        app:layout_constraintEnd_toStartOf="@id/telephone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/breed" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/telephone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="telephone placeholder"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/email"
+        app:layout_constraintTop_toTopOf="@+id/email" />
+
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -68,7 +90,7 @@
         app:layout_constraintBottom_toTopOf="@id/meetTitlePlaceholder"
         app:layout_constraintEnd_toStartOf="@id/sex"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/breed" />
+        app:layout_constraintTop_toBottomOf="@id/email" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/sex"
