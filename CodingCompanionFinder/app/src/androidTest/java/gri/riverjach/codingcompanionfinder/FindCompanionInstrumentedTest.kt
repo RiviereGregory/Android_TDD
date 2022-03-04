@@ -121,5 +121,13 @@ class FindCompanionInstrumentedTest {
         onView(withText("KEVIN")).perform(click())
     }
 
+    @Test
+    fun verify_that_companion_details_shows_a_valid_phone_number_and_email() {
+        find_and_select_kevin_in_30318()
+        onView(withText("(706) 236-4537"))
+            .check(matches(isDisplayed()))
+        onView(withText("adoptions@gahomelesspets.com"))
+            .check(matches(isDisplayed()))
+    }
 
 }
