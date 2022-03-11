@@ -3,8 +3,6 @@
 build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
 @
 app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
-á
-Wapp/src/androidTest/java/gri/riverjach/codingcompanionfinder/ExampleInstrumentedTest.kt,7\f\7fa48e555f8114ff84739b0a97cbad0ee8c1394a
 w
 Gapp/src/main/java/gri/riverjach/codingcompanionfinder/models/Address.kt,c\d\cd848bb33dfaad4414e986c0ee349d7eeacc39d2
 u
@@ -15,3 +13,21 @@ P
  app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
 u
 Eapp/src/main/java/gri/riverjach/codingcompanionfinder/MainActivity.kt,1\0\107702d9450bcdaf2958758e3ae17bb1ba556318
+ä
+Zapp/src/main/java/gri/riverjach/codingcompanionfinder/retrofit/AuthorizationInterceptor.kt,2\0\2054932975db9308bf6c2c48495c1c578ae076d0
+è
+_app/src/main/java/gri/riverjach/codingcompanionfinder/searchforcompanion/CompanionViewHolder.kt,3\2\327f584134cc4f30f5e57ff6811e846f310889ec
+Ç
+Rapp/src/androidTest/java/gri/riverjach/codingcompanionfinder/CommonTestDataUtil.kt,e\3\e3d5b5a32458ea5175fe4fda874c18396ebeb5a3
+
+Oapp/src/main/java/gri/riverjach/codingcompanionfinder/testhooks/IdlingEntity.kt,b\6\b6b5f15d88a95187b22986e5238d79d74852dc0b
+Ç
+Rapp/src/main/java/gri/riverjach/codingcompanionfinder/retrofit/PetFinderService.kt,d\7\d72dc0fb8d0b417fb95fbbb5d0be45296aa4422d
+Ñ
+Tapp/src/androidTest/java/gri/riverjach/codingcompanionfinder/SimpleIdlingResource.kt,4\f\4f98c17cfc8977f104e2dcaad6c9c31e558ae791
+ç
+]app/src/androidTest/java/gri/riverjach/codingcompanionfinder/FindCompanionInstrumentedTest.kt,4\9\491fe12ea95d2a4481baeea3e577726d2b4eae1f
+ë
+aapp/src/main/java/gri/riverjach/codingcompanionfinder/searchforcompanion/ViewCompanionFragment.kt,9\0\90622cc218f1f73916b0b73446f23e79a276721f
+ñ
+fapp/src/main/java/gri/riverjach/codingcompanionfinder/searchforcompanion/SearchForCompanionFragment.kt,4\2\42e1a14a9078cfeac0d9f53aabdea171a6915f46

@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
                 .addInterceptor(AuthorizationInterceptor(this))
                 .build()
 
-            val baseUrl = intent.getStringExtra(PETFINDER_URI) ?: "http://api.petfinder.com/v2/"
+            val baseUrl = intent.getStringExtra(PETFINDER_URI) ?: "https://api.petfinder.com/v2/"
 
             petFinderService = Retrofit.Builder()
                 .baseUrl(baseUrl)
