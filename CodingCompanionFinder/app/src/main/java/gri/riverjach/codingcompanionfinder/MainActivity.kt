@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import gri.riverjach.codingcompanionfinder.models.Token
 import gri.riverjach.codingcompanionfinder.retrofit.AuthorizationInterceptor
 import gri.riverjach.codingcompanionfinder.retrofit.PetFinderService
 import gri.riverjach.codingcompanionfinder.testhooks.IdlingEntity
@@ -21,27 +20,18 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         val PETFINDER_URI = "petfinder_uri"
-        val PETFINDER_KEY = "petfinder_key"
+        val API_KEY = "your client id"
+        val API_SECRET = "your client secret"
+        val DEFAULT_PETFINDER_URL = "https://api.petfinder.com/v2/"
     }
 
-
     var petFinderService: PetFinderService? = null
-
-    var token: Token = Token()
-
-  var apiKey = "replace with your API key"
-
-  val apiSecret = "replace with your API secret"
 
     var accessToken = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        intent.getStringExtra(PETFINDER_KEY)?.let {
-            apiKey = it
-        }
 
         if (petFinderService == null) {
             val logger = HttpLoggingInterceptor()
@@ -50,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                 .addInterceptor(logger)
                 .connectTimeout(60L, TimeUnit.SECONDS)
                 .readTimeout(60L, TimeUnit.SECONDS)
-                .addInterceptor(AuthorizationInterceptor(this))
+                .addInterceptor(AuthorizationInterceptor())
                 .build()
 
             val baseUrl = intent.getStringExtra(PETFINDER_URI) ?: "https://api.petfinder.com/v2/"

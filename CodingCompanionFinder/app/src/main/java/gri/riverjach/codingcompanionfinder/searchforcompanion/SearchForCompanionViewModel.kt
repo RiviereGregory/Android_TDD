@@ -11,7 +11,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 
-class SearchForCompanionViewModel : ViewModel() {
+class SearchForCompanionViewModel(val petFinderService: PetFinderService) : ViewModel() {
     val noResultsViewVisiblity: MutableLiveData<Int> = MutableLiveData<Int>()
     val companionLocation: MutableLiveData<String> = MutableLiveData()
 
@@ -19,7 +19,6 @@ class SearchForCompanionViewModel : ViewModel() {
     val animals: MutableLiveData<ArrayList<Animal>> =
         MutableLiveData<ArrayList<Animal>>()
     lateinit var accessToken: String
-    lateinit var petFinderService: PetFinderService
 
     fun searchForCompanions() {
         GlobalScope.launch {

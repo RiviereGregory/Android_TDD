@@ -31,12 +31,18 @@
 package gri.riverjach.codingcompanionfinder.retrofit
 
 import gri.riverjach.codingcompanionfinder.MainActivity
+import gri.riverjach.codingcompanionfinder.models.Token
 import okhttp3.Interceptor
 import okhttp3.Response
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import java.io.IOException
 
 
-class AuthorizationInterceptor(private val mainActivity: MainActivity) : Interceptor {
+class AuthorizationInterceptor : Interceptor, KoinComponent {
+
+    private val petFinderService: PetFinderService by inject()
+    private var token = Token()
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -47,28 +53,24 @@ class AuthorizationInterceptor(private val mainActivity: MainActivity) : Interce
         if ((mainResponse.code() == 401 || mainResponse.code() == 403) && !mainResponse.request()
                 .url().url().toString().contains("oauth2/token")
         ) {
-            // request to login API to get fresh token
-            // synchronously calling login API
-            mainActivity.petFinderService?.let { petFinderService ->
-                val tokenRequest = petFinderService.getToken(
-                    clientId = mainActivity.apiKey,
-                    clientSecret = mainActivity.apiSecret
-                )
-                val tokenResponse = tokenRequest.execute()
+            val tokenRequest = petFinderService.getToken(
+                clientId = MainActivity.API_KEY,
+                clientSecret = MainActivity.API_SECRET
+            )
+            val tokenResponse = tokenRequest.execute()
 
-                if (tokenResponse.isSuccessful) {
-                    // login request succeeded, new token generated
-                    // save the new token
-                    // retry the 'mainRequest' which encountered an authentication error
-                    // add new token into 'mainRequest' header and request again
-                    tokenResponse.body()?.let {
-                        mainActivity.token = it
-                        val builder = mainRequest.newBuilder()
-                            .header("Authorization", "Bearer " + it.accessToken)
-                            .method(mainRequest.method(), mainRequest.body())
-                        mainResponse.close()
-                        mainResponse = chain.proceed(builder.build())
-                    }
+            if (tokenResponse.isSuccessful()) {
+                // login request succeeded, new token generated
+                // save the new token
+                // retry the 'mainRequest' which encountered an authentication error
+                // add new token into 'mainRequest' header and request again
+                tokenResponse.body()?.let {
+                    token = it
+                    val builder = mainRequest.newBuilder()
+                        .header("Authorization", "Bearer " + it.accessToken)
+                        .method(mainRequest.method(), mainRequest.body())
+                    mainResponse.close()
+                    mainResponse = chain.proceed(builder.build())
                 }
             }
         }

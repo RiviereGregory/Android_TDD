@@ -22,6 +22,10 @@ import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.koin.core.context.loadKoinModules
+import org.koin.core.qualifier.named
+import org.koin.dsl.module
+import org.koin.test.KoinTest
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -29,9 +33,15 @@ import org.junit.runner.RunWith
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
-class FindCompanionInstrumentedTest {
+class FindCompanionInstrumentedTest : KoinTest {
     lateinit var testScenario: ActivityScenario<MainActivity>
     private val idlingResource = SimpleIdlingResource()
+
+    private fun loadKoinTestModules() {
+        loadKoinModules(listOf(module(override = true) {
+            single(named(PETFINDER_URL)) { server.url("").toString() }
+        }))
+    }
 
     companion object {
 
@@ -79,6 +89,7 @@ class FindCompanionInstrumentedTest {
     @Before
     fun beforeTestsRun() {
         testScenario = ActivityScenario.launch(startIntent)
+        loadKoinTestModules()
         EventBus.getDefault().register(this)
         IdlingRegistry.getInstance().register(idlingResource)
 

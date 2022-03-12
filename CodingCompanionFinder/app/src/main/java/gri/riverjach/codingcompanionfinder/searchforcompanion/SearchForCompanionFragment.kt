@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import gri.riverjach.codingcompanionfinder.MainActivity
 import gri.riverjach.codingcompanionfinder.databinding.FragmentSearchForCompanionBinding
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class SearchForCompanionFragment : Fragment() {
 
@@ -24,7 +24,7 @@ class SearchForCompanionFragment : Fragment() {
     private lateinit var viewManager: RecyclerView.LayoutManager
 
     private lateinit var fragmentSearchForCompanionBinding: FragmentSearchForCompanionBinding
-    private lateinit var searchForCompanionViewModel: SearchForCompanionViewModel
+    private val searchForCompanionViewModel: SearchForCompanionViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,8 +35,6 @@ class SearchForCompanionFragment : Fragment() {
                 inflater,
                 container, false
             )
-        searchForCompanionViewModel = ViewModelProvider(this)
-            .get(SearchForCompanionViewModel::class.java)
         fragmentSearchForCompanionBinding.searchForCompanionViewModel = searchForCompanionViewModel
         fragmentSearchForCompanionBinding.lifecycleOwner = this
         return fragmentSearchForCompanionBinding.root
@@ -64,8 +62,6 @@ class SearchForCompanionFragment : Fragment() {
     private fun setupSearchForCompanions() {
         searchForCompanionViewModel.accessToken =
             (activity as MainActivity).accessToken
-        searchForCompanionViewModel.petFinderService =
-            (activity as MainActivity).petFinderService!!
         viewManager = LinearLayoutManager(context)
         companionAdapter = CompanionAdapter(
             searchForCompanionViewModel.animals.value ?: arrayListOf(),
