@@ -38,10 +38,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.synnapps.carouselview.CarouselView
 import gri.riverjach.codingcompanionfinder.GlideApp
 import gri.riverjach.codingcompanionfinder.R
+import gri.riverjach.codingcompanionfinder.databinding.FragmentViewCompanionBinding
 import gri.riverjach.codingcompanionfinder.models.Animal
 
 class ViewCompanionFragment : Fragment() {
@@ -61,11 +63,23 @@ class ViewCompanionFragment : Fragment() {
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    // Inflate the layout for this fragment
     animal = args.animal
     viewCompanionFragment = this
-    return inflater.inflate(R.layout.fragment_view_companion, container, false)
+    // 1
+    val fragmentViewCompanionBinding =
+      FragmentViewCompanionBinding
+        .inflate(inflater, container, false)
+    // 2
+    val viewCompanionViewModel = ViewModelProvider(this).get(ViewCompanionViewModel::class.java)
+    // 3
+    viewCompanionViewModel.populateFromAnimal(animal)
+    // 4
+    fragmentViewCompanionBinding.viewCompanionViewModel =
+      viewCompanionViewModel
+    // 5
+    return fragmentViewCompanionBinding.root
   }
+
 
   override fun onResume() {
     populatePet()
