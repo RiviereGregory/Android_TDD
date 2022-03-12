@@ -7,6 +7,15 @@
     app:startDestination="@id/randomCompanionFragment">
 
     <fragment
+        android:id="@+id/viewCompanion"
+        android:name="gri.riverjach.codingcompanionfinder.searchforcompanion.ViewCompanionFragment"
+        android:label="fragment_view_companion"
+        tools:layout="@layout/fragment_view_companion">
+        <argument
+            android:name="animal"
+            app:argType="gri.riverjach.codingcompanionfinder.models.Animal" />
+    </fragment>
+    <fragment
         android:id="@+id/randomCompanionFragment"
         android:name="gri.riverjach.codingcompanionfinder.randomcompanion.RandomCompanionFragment"
         android:label="fragment_random_pet"
@@ -15,5 +24,9 @@
         android:id="@+id/searchForCompanionFragment"
         android:name="gri.riverjach.codingcompanionfinder.searchforcompanion.SearchForCompanionFragment"
         android:label="fragment_search_for_pet"
-        tools:layout="@layout/fragment_search_for_companion" />
+        tools:layout="@layout/fragment_search_for_companion">
+        <action
+            android:id="@+id/action_searchForCompanionFragment_to_viewCompanion"
+            app:destination="@id/viewCompanion" />
+    </fragment>
 </navigation>
