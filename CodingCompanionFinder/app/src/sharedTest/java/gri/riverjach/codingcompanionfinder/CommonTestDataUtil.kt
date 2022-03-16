@@ -30,11 +30,13 @@ object CommonTestDataUtil {
     @Throws(IOException::class)
     private fun readFile(jsonFileName: String): String {
         val inputStream = this::class.java
-            .getResourceAsStream("/assets/$jsonFileName")
-            ?: throw NullPointerException(
-                "Have you added the local resource correctly?, "
-                        + "Hint: name it as: " + jsonFileName
-            )
+            .getResourceAsStream("/assets/$jsonFileName") ?: this::class.java
+            .getResourceAsStream("/$jsonFileName")
+        ?: throw NullPointerException(
+            "Have you added the local resource correctly?, "
+                    + "Hint: name it as: " + jsonFileName
+        )
+
         val stringBuilder = StringBuilder()
         var inputStreamReader: InputStreamReader? = null
         try {

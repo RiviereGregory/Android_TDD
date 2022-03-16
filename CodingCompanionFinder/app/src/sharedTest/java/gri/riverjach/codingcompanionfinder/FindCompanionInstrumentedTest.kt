@@ -2,7 +2,6 @@ package gri.riverjach.codingcompanionfinder
 
 import android.content.Intent
 import androidx.test.core.app.ActivityScenario
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
@@ -23,9 +22,12 @@ import org.junit.BeforeClass
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.core.context.loadKoinModules
+import org.koin.core.context.startKoin
+import org.koin.core.context.stopKoin
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
-import org.koin.test.KoinTest
+import org.koin.test.AutoCloseKoinTest
+import org.robolectric.annotation.LooperMode
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -33,14 +35,17 @@ import org.koin.test.KoinTest
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
-class FindCompanionInstrumentedTest : KoinTest {
+@LooperMode(LooperMode.Mode.PAUSED)
+class FindCompanionInstrumentedTest : AutoCloseKoinTest() {
     lateinit var testScenario: ActivityScenario<MainActivity>
     private val idlingResource = SimpleIdlingResource()
 
     private fun loadKoinTestModules() {
+        stopKoin()
+        startKoin { }
         loadKoinModules(listOf(module(override = true) {
             single(named(PETFINDER_URL)) { server.url("").toString() }
-        }))
+        }, appModule))
     }
 
     companion object {
@@ -64,20 +69,8 @@ class FindCompanionInstrumentedTest : KoinTest {
         @BeforeClass
         @JvmStatic
         fun setup() {
-            // 3
             server.setDispatcher(dispatcher)
             server.start()
-
-            // 4
-            startIntent =
-                Intent(
-                    ApplicationProvider.getApplicationContext(),
-                    MainActivity::class.java
-                )
-            startIntent.putExtra(
-                MainActivity.PETFINDER_URI,
-                server.url("").toString()
-            )
         }
     }
 
@@ -88,19 +81,19 @@ class FindCompanionInstrumentedTest : KoinTest {
 
     @Before
     fun beforeTestsRun() {
-        testScenario = ActivityScenario.launch(startIntent)
         loadKoinTestModules()
+        testScenario = ActivityScenario.launch(MainActivity::class.java)
+
         EventBus.getDefault().register(this)
         IdlingRegistry.getInstance().register(idlingResource)
-
     }
 
     @After
     fun afterTestsRun() {
-        testScenario.close()
+        // eventbus and idling resources unregister.
         IdlingRegistry.getInstance().unregister(idlingResource)
         EventBus.getDefault().unregister(this)
-
+        testScenario.close()
     }
 
     @Test
