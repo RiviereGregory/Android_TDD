@@ -18,7 +18,7 @@ class SearchForCompanionViewModel(val petFinderService: PetFinderService) : View
     // 1
     val animals: MutableLiveData<ArrayList<Animal>> =
         MutableLiveData<ArrayList<Animal>>()
-    lateinit var accessToken: String
+    var accessToken: String = ""
 
     fun searchForCompanions() {
         GlobalScope.launch {

@@ -15,15 +15,9 @@ Oapp/src/main/java/gri/riverjach/codingcompanionfinder/testhooks/IdlingEntity.kt
 Rapp/src/main/java/gri/riverjach/codingcompanionfinder/retrofit/PetFinderService.kt,d\7\d72dc0fb8d0b417fb95fbbb5d0be45296aa4422d
 ‘
 aapp/src/main/java/gri/riverjach/codingcompanionfinder/searchforcompanion/ViewCompanionFragment.kt,9\0\90622cc218f1f73916b0b73446f23e79a276721f
-–
-fapp/src/main/java/gri/riverjach/codingcompanionfinder/searchforcompanion/SearchForCompanionFragment.kt,4\2\42e1a14a9078cfeac0d9f53aabdea171a6915f46
 ’
 bapp/src/main/java/gri/riverjach/codingcompanionfinder/searchforcompanion/ViewCompanionViewModel.kt,8\6\8613741f79426566e13a61d8eba9e454bb2b1b0e
 Œ
 \app/src/main/java/gri/riverjach/codingcompanionfinder/searchforcompanion/CompanionAdapter.kt,b\9\b95e7f4ee31086d3ddf5259d653a045436e1f1bc
-~
-Napp/src/main/java/gri/riverjach/codingcompanionfinder/CodingCompanionFinder.kt,c\f\cf33ae95ae62641006c3793882bd9c65efe628eb
 s
 Capp/src/main/java/gri/riverjach/codingcompanionfinder/KoinModule.kt,e\d\ed784037fb782a4507c1f8d6e3af3439cca5b772
-—
-gapp/src/main/java/gri/riverjach/codingcompanionfinder/searchforcompanion/SearchForCompanionViewModel.kt,3\0\30e6ae100e5fbc7a201f5f44b7b6c668d15c83c1

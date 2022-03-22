@@ -9,7 +9,6 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import gri.riverjach.codingcompanionfinder.MainActivity
 import gri.riverjach.codingcompanionfinder.databinding.FragmentSearchForCompanionBinding
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -60,8 +59,6 @@ class SearchForCompanionFragment : Fragment() {
 
 
     private fun setupSearchForCompanions() {
-        searchForCompanionViewModel.accessToken =
-            (activity as MainActivity).accessToken
         viewManager = LinearLayoutManager(context)
         companionAdapter = CompanionAdapter(
             searchForCompanionViewModel.animals.value ?: arrayListOf(),
