@@ -25,5 +25,3 @@ Qapp/src/sharedTest/java/gri/riverjach/codingcompanionfinder/CommonTestDataUtil.
 build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
 è
 _app/src/main/java/gri/riverjach/codingcompanionfinder/searchforcompanion/CompanionViewHolder.kt,3\2\327f584134cc4f30f5e57ff6811e846f310889ec
-Ä
-Papp/src/sharedTest/java/gri/riverjach/codingcompanionfinder/ViewCompanionTest.kt,6\f\6ff638ee89f81670368b481f59fc939e84f5cc26
