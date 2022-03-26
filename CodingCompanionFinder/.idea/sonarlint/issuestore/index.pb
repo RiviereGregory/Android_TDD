@@ -5,14 +5,10 @@ u
 Eapp/src/main/java/gri/riverjach/codingcompanionfinder/models/Token.kt,a\2\a2dddc07af769037466ffef0ae8e74abf8b1f001
 É
 Sapp/src/main/java/gri/riverjach/codingcompanionfinder/CodingCompanionGlideModule.kt,6\a\6a8d149fad3e7138852df9652327b30711f45d1a
-P
- app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
 
 Oapp/src/main/java/gri/riverjach/codingcompanionfinder/testhooks/IdlingEntity.kt,b\6\b6b5f15d88a95187b22986e5238d79d74852dc0b
 Ç
 Rapp/src/main/java/gri/riverjach/codingcompanionfinder/retrofit/PetFinderService.kt,d\7\d72dc0fb8d0b417fb95fbbb5d0be45296aa4422d
-ë
-aapp/src/main/java/gri/riverjach/codingcompanionfinder/searchforcompanion/ViewCompanionFragment.kt,9\0\90622cc218f1f73916b0b73446f23e79a276721f
 å
 \app/src/main/java/gri/riverjach/codingcompanionfinder/searchforcompanion/CompanionAdapter.kt,b\9\b95e7f4ee31086d3ddf5259d653a045436e1f1bc
 s
@@ -21,18 +17,12 @@ Capp/src/main/java/gri/riverjach/codingcompanionfinder/KoinModule.kt,e\d\ed7840
 build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
 è
 _app/src/main/java/gri/riverjach/codingcompanionfinder/searchforcompanion/CompanionViewHolder.kt,3\2\327f584134cc4f30f5e57ff6811e846f310889ec
-u
-Eapp/src/main/java/gri/riverjach/codingcompanionfinder/MainActivity.kt,1\0\107702d9450bcdaf2958758e3ae17bb1ba556318
 ñ
 fapp/src/main/java/gri/riverjach/codingcompanionfinder/searchforcompanion/SearchForCompanionFragment.kt,4\2\42e1a14a9078cfeac0d9f53aabdea171a6915f46
 w
 Gapp/src/main/java/gri/riverjach/codingcompanionfinder/SplashActivity.kt,6\b\6b3365678dd1f0a5024e4db35931d8811ca47c63
-å
-\app/src/sharedTest/java/gri/riverjach/codingcompanionfinder/FindCompanionInstrumentedTest.kt,c\0\c0fd5b65fb942674c4c0cbb030dbc654385a9068
 ~
 Napp/src/main/java/gri/riverjach/codingcompanionfinder/CodingCompanionFinder.kt,c\f\cf33ae95ae62641006c3793882bd9c65efe628eb
-Ö
-Uapp/src/sharedTest/java/gri/riverjach/codingcompanionfinder/SearchForCompanionTest.kt,a\0\a0d7987cc5ab30b60e47182a67b236808bd0e5ca
 í
 bapp/src/main/java/gri/riverjach/codingcompanionfinder/searchforcompanion/ViewCompanionViewModel.kt,8\6\8613741f79426566e13a61d8eba9e454bb2b1b0e
 Ä

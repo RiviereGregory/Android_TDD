@@ -31,6 +31,9 @@
 package gri.riverjach.codingcompanionfinder.searchforcompanion
 
 
+import android.Manifest
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -40,6 +43,12 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.single.PermissionListener
 import com.synnapps.carouselview.CarouselView
 import gri.riverjach.codingcompanionfinder.GlideApp
 import gri.riverjach.codingcompanionfinder.R
@@ -48,86 +57,127 @@ import gri.riverjach.codingcompanionfinder.models.Animal
 
 class ViewCompanionFragment : Fragment() {
 
-  companion object {
-    val ANIMAL: String = "ANIMAL"
-  }
-
-  private lateinit var animal: Animal
-  private lateinit var petPhotos: ArrayList<String>
-  private lateinit var petCaroselView: CarouselView
-  private lateinit var viewCompanionFragment: ViewCompanionFragment
-
-  val args: ViewCompanionFragmentArgs by navArgs()
-
-  override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View? {
-    animal = args.animal
-    viewCompanionFragment = this
-    // 1
-    val fragmentViewCompanionBinding =
-      FragmentViewCompanionBinding
-        .inflate(inflater, container, false)
-    // 2
-    val viewCompanionViewModel = ViewModelProvider(this).get(ViewCompanionViewModel::class.java)
-    // 3
-    viewCompanionViewModel.populateFromAnimal(animal)
-    // 4
-    fragmentViewCompanionBinding.viewCompanionViewModel =
-      viewCompanionViewModel
-    // 5
-    return fragmentViewCompanionBinding.root
-  }
-
-
-  override fun onResume() {
-    populatePet()
-    super.onResume()
-  }
-
-  private fun populatePet() {
-    populateTextField(R.id.petName, animal.name)
-    populateTextField(
-      R.id.city,
-      animal.contact.address.city + ", " + animal.contact.address.state
-    )
-    populateTextField(R.id.age, animal.age)
-    populateTextField(R.id.email, animal.contact.email)
-    populateTextField(R.id.telephone, animal.contact.phone)
-    populateTextField(R.id.sex, animal.gender)
-    populateTextField(R.id.size, animal.size)
-    populateTextField(R.id.meetTitlePlaceholder, "Meet " + animal.name)
-    populateTextField(R.id.description, animal.description)
-    populatePhotos()
-
-    populateTextField(R.id.breed, animal.breeds.primary)
-  }
-
-  private fun populatePhotos() {
-    petPhotos = ArrayList()
-    animal.photos.forEach { photo ->
-      petPhotos.add(photo.full)
+    companion object {
+        val ANIMAL: String = "ANIMAL"
     }
 
-    view?.let {
-      petCaroselView = it.findViewById(R.id.petCarouselView)
-      petCaroselView.setViewListener { position ->
-        val carouselItemView = layoutInflater.inflate(R.layout.companion_photo_layout, null)
-        val imageView = carouselItemView.findViewById<ImageView>(R.id.petImage)
-        GlideApp.with(viewCompanionFragment).load(petPhotos[position])
-          .fitCenter()
-          .into(imageView)
-        carouselItemView
-      }
-      petCaroselView.pageCount = petPhotos.size
-    }
-  }
+    private lateinit var animal: Animal
+    private lateinit var petPhotos: ArrayList<String>
+    private lateinit var petCaroselView: CarouselView
+    private lateinit var viewCompanionFragment: ViewCompanionFragment
+    private lateinit var fragmentViewCompanionBinding: FragmentViewCompanionBinding
+    private lateinit var viewCompanionViewModel: ViewCompanionViewModel
 
-  private fun populateTextField(id: Int, stringValue: String) {
-    view?.let {
-      (it.findViewById(id) as TextView).text = stringValue
+    val args: ViewCompanionFragmentArgs by navArgs()
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        animal = args.animal
+        viewCompanionFragment = this
+        // 1
+        fragmentViewCompanionBinding =
+            FragmentViewCompanionBinding
+                .inflate(inflater, container, false)
+        // 2
+        viewCompanionViewModel = ViewModelProvider(this).get(ViewCompanionViewModel::class.java)
+        // 3
+        viewCompanionViewModel.populateFromAnimal(animal)
+        // 4
+        fragmentViewCompanionBinding.viewCompanionViewModel =
+            viewCompanionViewModel
+        // 5
+        setupPhonNumberOnClick()
+        return fragmentViewCompanionBinding.root
     }
-  }
+
+
+    override fun onResume() {
+        populatePet()
+        super.onResume()
+    }
+
+    private fun populatePet() {
+        populateTextField(R.id.petName, animal.name)
+        populateTextField(
+            R.id.city,
+            animal.contact.address.city + ", " + animal.contact.address.state
+        )
+        populateTextField(R.id.age, animal.age)
+        populateTextField(R.id.email, animal.contact.email)
+        populateTextField(R.id.telephone, animal.contact.phone)
+        populateTextField(R.id.sex, animal.gender)
+        populateTextField(R.id.size, animal.size)
+        populateTextField(R.id.meetTitlePlaceholder, "Meet " + animal.name)
+        populateTextField(R.id.description, animal.description)
+        populatePhotos()
+
+        populateTextField(R.id.breed, animal.breeds.primary)
+    }
+
+    private fun populatePhotos() {
+        petPhotos = ArrayList()
+        animal.photos.forEach { photo ->
+            petPhotos.add(photo.full)
+        }
+
+        view?.let {
+            petCaroselView = it.findViewById(R.id.petCarouselView)
+            petCaroselView.setViewListener { position ->
+                val carouselItemView = layoutInflater.inflate(R.layout.companion_photo_layout, null)
+                val imageView = carouselItemView.findViewById<ImageView>(R.id.petImage)
+                GlideApp.with(viewCompanionFragment).load(petPhotos[position])
+                    .fitCenter()
+                    .into(imageView)
+                carouselItemView
+            }
+            petCaroselView.pageCount = petPhotos.size
+        }
+    }
+
+    private fun populateTextField(id: Int, stringValue: String) {
+        view?.let {
+            (it.findViewById(id) as TextView).text = stringValue
+        }
+    }
+
+    private fun setupPhonNumberOnClick() {
+        fragmentViewCompanionBinding.telephone.setOnClickListener {
+            // 1
+            Dexter.withActivity(activity)
+                .withPermission(Manifest.permission.CALL_PHONE)
+                .withListener(
+                    object : PermissionListener {
+                        // 3
+                        override fun onPermissionGranted(
+                            response: PermissionGrantedResponse
+                        ) {/* ... */
+                            val intent = Intent(
+                                Intent.ACTION_CALL, Uri.parse(
+                                    "tel:" + viewCompanionViewModel.telephone
+                                )
+                            )
+                            startActivity(intent)
+                        }
+
+                        override fun onPermissionDenied(
+                            response: PermissionDeniedResponse
+                        ) {/* ... */
+                        }
+
+                        // 2
+                        override fun onPermissionRationaleShouldBeShown(
+                            permission: PermissionRequest,
+                            token: PermissionToken
+                        ) {/* ... */
+                            token.continuePermissionRequest()
+                        }
+                    }
+                )
+                .onSameThread()
+                .check()
+        }
+    }
 
 }

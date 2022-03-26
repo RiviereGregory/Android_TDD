@@ -1,5 +1,7 @@
 package gri.riverjach.codingcompanionfinder
 
+import android.app.Activity
+import android.app.Instrumentation
 import android.content.Intent
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
@@ -7,8 +9,14 @@ import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.intent.Intents
+import androidx.test.espresso.intent.Intents.intended
+import androidx.test.espresso.intent.Intents.intending
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasAction
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasData
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.rule.GrantPermissionRule
 import gri.riverjach.codingcompanionfinder.testhooks.IdlingEntity
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
@@ -16,10 +24,8 @@ import okhttp3.mockwebserver.MockWebServer
 import okhttp3.mockwebserver.RecordedRequest
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
-import org.junit.After
-import org.junit.Before
-import org.junit.BeforeClass
-import org.junit.Test
+import org.hamcrest.CoreMatchers.allOf
+import org.junit.*
 import org.junit.runner.RunWith
 import org.koin.core.context.loadKoinModules
 import org.koin.core.context.startKoin
@@ -37,16 +43,14 @@ import org.robolectric.annotation.LooperMode
 @RunWith(AndroidJUnit4::class)
 @LooperMode(LooperMode.Mode.PAUSED)
 class FindCompanionInstrumentedTest : AutoCloseKoinTest() {
+    @get:Rule
+    val grantPermissionRule: GrantPermissionRule =
+        GrantPermissionRule.grant(
+            android.Manifest.permission.CALL_PHONE
+        )
+
     lateinit var testScenario: ActivityScenario<MainActivity>
     private val idlingResource = SimpleIdlingResource()
-
-    private fun loadKoinTestModules() {
-        stopKoin()
-        startKoin { }
-        loadKoinModules(listOf(module(override = true) {
-            single(named(PETFINDER_URL)) { server.url("").toString() }
-        }, appModule))
-    }
 
     companion object {
 
@@ -72,6 +76,14 @@ class FindCompanionInstrumentedTest : AutoCloseKoinTest() {
             server.setDispatcher(dispatcher)
             server.start()
         }
+    }
+
+    private fun loadKoinTestModules() {
+        stopKoin()
+        startKoin { }
+        loadKoinModules(listOf(module(override = true) {
+            single(named(PETFINDER_URL)) { server.url("").toString() }
+        }, appModule))
     }
 
     @Subscribe
@@ -179,6 +191,31 @@ class FindCompanionInstrumentedTest : AutoCloseKoinTest() {
             .check(matches(isDisplayed()))
         onView(withId(R.id.noResults))
             .check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
+    }
+
+    @Test
+    fun verify_that_tapping_on_phone_number_dials_phone() {
+        Intents.init()
+        val intent = Intent()
+        val result =
+            Instrumentation.ActivityResult(Activity.RESULT_OK, intent)
+
+        intending(
+            allOf(
+                hasAction(Intent.ACTION_CALL)
+            )
+        ).respondWith(result)
+        find_and_select_kevin_in_30318()
+        onView(withText("(706) 236-4537")).perform(click())
+
+        intended(
+            allOf(
+                hasAction(Intent.ACTION_CALL),
+                hasData("tel:(706) 236-4537")
+            )
+        )
+
+        Intents.release()
     }
 
 }

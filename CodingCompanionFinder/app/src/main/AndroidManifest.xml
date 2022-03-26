@@ -3,6 +3,7 @@
     package="gri.riverjach.codingcompanionfinder">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:name=".CodingCompanionFinder"
