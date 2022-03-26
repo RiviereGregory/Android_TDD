@@ -39,7 +39,8 @@ class SearchForCompanionViewModelTest {
         override fun dispatch(
             request: RecordedRequest
         ): MockResponse {
-            return CommonTestDataUtil.dispatch(request) ?: MockResponse().setResponseCode(404)
+            return CommonTestDataUtil.nonInterceptedDispatch(request)
+                ?: MockResponse().setResponseCode(404)
         }
     }
 

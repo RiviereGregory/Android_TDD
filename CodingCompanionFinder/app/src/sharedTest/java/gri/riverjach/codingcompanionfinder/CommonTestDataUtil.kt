@@ -8,16 +8,52 @@ import java.io.InputStreamReader
 
 object CommonTestDataUtil {
     fun dispatch(request: RecordedRequest): MockResponse? {
+        val headers = request.headers
+        if (request.method.equals("POST")) {
+            if (request.path.equals("/oauth2/token")) {
+                return MockResponse().setResponseCode(200).setBody(
+                    "{\"access_token\":\"valid_token\"}"
+                )
+            }
+        }
+        val authorization = headers.values("Authorization")
+        if (!authorization.isEmpty() &&
+            authorization.get(0).equals("Bearer valid_token")
+        ) {
+            return when (request.path) {
+                "/animals?limit=20&location=30318" -> {
+                    MockResponse()
+                        .setResponseCode(200)
+                        .setBody(
+                            readFile("search_30318.json")
+                        )
+                }
+                "/animals?limit=20&location=90210" -> {
+                    MockResponse()
+                        .setResponseCode(200)
+                        .setBody("{\"animals\": []}")
+                }
+                else -> {
+                    MockResponse().setResponseCode(404).setBody("{}")
+                }
+            }
+        } else {
+            return MockResponse().setResponseCode(401).setBody("{}")
+        }
+    }
+
+    fun nonInterceptedDispatch(
+        request: RecordedRequest
+    ): MockResponse? {
+        val headers = request.headers
         return when (request.path) {
             "/animals?limit=20&location=30318" -> {
-                MockResponse()
-                    .setResponseCode(200)
-                    .setBody(readFile("search_30318.json"))
+                MockResponse().setResponseCode(200).setBody(
+                    readFile("search_30318.json")
+                )
             }
-            // test data for no response
             "/animals?limit=20&location=90210" -> {
-                MockResponse()
-                    .setResponseCode(200)
+                MockResponse().setResponseCode(200)
                     .setBody("{\"animals\": []}")
             }
             else -> {
