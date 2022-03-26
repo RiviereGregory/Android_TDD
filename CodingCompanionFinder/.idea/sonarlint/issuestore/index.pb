@@ -35,7 +35,5 @@ Napp/src/main/java/gri/riverjach/codingcompanionfinder/CodingCompanionFinder.kt
 Uapp/src/sharedTest/java/gri/riverjach/codingcompanionfinder/SearchForCompanionTest.kt,a\0\a0d7987cc5ab30b60e47182a67b236808bd0e5ca
 ’
 bapp/src/main/java/gri/riverjach/codingcompanionfinder/searchforcompanion/ViewCompanionViewModel.kt,8\6\8613741f79426566e13a61d8eba9e454bb2b1b0e
-ƒ
-Sapp/src/test/java/gri/riverjach/codingcompanionfinder/ViewCompanionViewModelTest.kt,2\a\2a5d8b4fb171a15a4446105db8c2f16279368c3a
 €
 Papp/src/sharedTest/java/gri/riverjach/codingcompanionfinder/ViewCompanionTest.kt,6\f\6ff638ee89f81670368b481f59fc939e84f5cc26
